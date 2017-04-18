@@ -1,9 +1,9 @@
-# Seminar-UDPT - *Tên đề tài*
+# Seminar-UDPT - *Jasmine JS*
 
 **Tên đề tài** là một repository trong đề tài tìm hiểu của lớp Ứng dụng phân tán.
 
 Thành viên:
-* [ ] **MSSV1** Tên sinh viên 1 (tên tài khoản github)
+* [ ] **1412557** Phạm Đức Toàn (NhoxToong)
 * [ ] **MSSV2** Tên sinh viên 2 (tên tài khoản github)
 
 URL: **Link github page**
