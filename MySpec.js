@@ -14,7 +14,7 @@ describe("kiểm tra hàm tính toán", function(){
 	var cal = new Calculator();
 
 	it("1 + 1 = 2", function(){
-		expect(2).toBe(cal.add(1,1));
+		expect(3).toBe(cal.add(1,1));
 	});
 	it("2 + 2 <> 5", function() {
    		expect(5).not.toBe(cal.add(2,2));
@@ -27,7 +27,7 @@ describe("kiểm tra hàm tính toán", function(){
 });
 
 
-describe("so sánh sử dụng matcher", function(){
+xdescribe("so sánh sử dụng matcher", function(){
 	it("toEqual", function(){
 		var foo={
 			a:12,
@@ -78,7 +78,7 @@ describe("A spec (with setup and tear-down)", function() {
   });
 });
 
-describe('Hello world', function () {
+xdescribe('Hello world', function () {
 
     beforeEach(function () {
         jasmine.addMatchers({
@@ -101,7 +101,7 @@ describe('Hello world', function () {
 
 });
 
-describe("Spy", function() {
+xdescribe("Spy", function() {
     var calc;
     var person,eaten = null;
  
@@ -139,7 +139,7 @@ describe("Spy", function() {
  
     });
 });
-describe("Fake module", function() {
+xdescribe("Fake module", function() {
  var person, eaten = null;
  
  //Hàm này được chạy đầu mỗi test case
@@ -164,4 +164,102 @@ describe("Fake module", function() {
      //Gọi kết quả lấy từ hàm mock
      expect(person.foodEaten()).toBe('banana');
  });
+});
+
+xdescribe("Nested Describe Demo", function() {
+    beforeEach(function() {
+        console.log("beforeEach level 1");
+    });
+    describe("MyTest level2", function() {
+        beforeEach(function() {
+            console.log("beforeEach level 2");
+        });
+        describe("MyTest level3", function() {
+            beforeEach(function() {
+                console.log("beforeEach level 3");
+            });
+            it("is a simple spec in level3", function() {
+                console.log("A simple spec in level 3");
+                expect(true).toBe(true);
+            });
+            afterEach(function() {
+                console.log("afterEach level 3");
+            });
+        });
+        afterEach(function() {
+            console.log("afterEach level 2");
+        });
+    });
+    afterEach(function() {
+        console.log("afterEach level 1");
+    });
+});
+
+
+
+//test suite
+xdescribe("Test",function(){
+	it("test spec", function(){
+		expect(express).toEqual(true);
+	});
+});
+
+describe("A spy, when created manually", function() {
+  var whatAmI;
+
+  beforeEach(function() {
+    whatAmI = jasmine.createSpy('whatAmI');
+
+    whatAmI("I", "am", "a", "spy");
+  });
+
+  it("is named, which helps in error reporting", function() {
+    expect(whatAmI.and.identity()).toEqual('whatAmI');
+  });
+
+  it("tracks that the spy was called", function() {
+    expect(whatAmI).toHaveBeenCalled();
+  });
+
+  it("tracks its number of calls", function() {
+    expect(whatAmI.calls.count()).toEqual(1);
+  });
+
+  it("tracks all the arguments of its calls", function() {
+    expect(whatAmI).toHaveBeenCalledWith("I", "am", "a", "spy");
+  });
+
+  it("allows access to the most recent call", function() {
+    expect(whatAmI.calls.mostRecent().args[0]).toEqual("I");
+  });
+});
+
+describe("Multiple spies, when created manually", function() {
+  var tape;
+
+  beforeEach(function() {
+    tape = jasmine.createSpyObj('tape', ['play', 'pause', 'stop', 'rewind']);
+
+    tape.play();
+    tape.pause();
+    tape.rewind(0);
+  });
+
+  it("creates spies for each requested function", function() {
+    expect(tape.play).toBeDefined();
+    expect(tape.pause).toBeDefined();
+    expect(tape.stop).toBeDefined();
+    expect(tape.rewind).toBeDefined();
+  });
+
+  it("tracks that the spies were called", function() {
+    expect(tape.play).toHaveBeenCalled();
+    expect(tape.pause).toHaveBeenCalled();
+    expect(tape.rewind).toHaveBeenCalled();
+    expect(tape.stop).not.toHaveBeenCalled();
+  });
+
+  it("tracks all the arguments of its calls", function() {
+    expect(tape.rewind).toHaveBeenCalledWith(0);
+  });
 });
