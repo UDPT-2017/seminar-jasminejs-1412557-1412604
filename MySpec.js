@@ -100,3 +100,68 @@ describe('Hello world', function () {
     });
 
 });
+
+describe("Spy", function() {
+    var calc;
+    var person,eaten = null;
+ 
+    beforeEach(function() {
+        calc  = new Calculator();
+        spyOn(calc, 'add');
+        person = {
+    		eat: function(value) {
+      			eaten = value;
+    		}	
+  		};
+
+    	spyOn(person, 'eat').and.callThrough();
+    });
+    
+ 
+    describe("thực hiện phép cộng", function(){
+         
+        //Test for sum operation
+        it("kết quả của 3 + 5 ", function() {
+            //call any method
+            calc.add(3,5);
+            person.eat('banana');
+ 
+            //verify it got executed
+            expect(calc.add).toHaveBeenCalled();
+            expect(calc.add).toHaveBeenCalledWith(3,5);
+            expect(person.eat).toHaveBeenCalled();
+        });
+
+        it("stops all execution on a function", function() {
+   		//Spy sẽ chặn hàm eat, do đó giá trị eaten không được set
+   		expect(eaten).toBe('banana');
+ });
+ 
+    });
+});
+describe("Fake module", function() {
+ var person, eaten = null;
+ 
+ //Hàm này được chạy đầu mỗi test case
+ beforeEach(function() {
+    person = {
+      eat: function(value) {
+           eaten = value;
+      },
+      foodEaten: function(){
+           //Viết chưa xong
+      }
+ };
+ 
+ //Spy sẽ làm mock
+ //Giả kết quả trả về của hàm foodEaten
+     spyOn(person, 'foodEaten').and.callFake(function() {
+        return 'banana';
+     });;
+ });
+ 
+ it("gọi kết quả hàm mock", function() {
+     //Gọi kết quả lấy từ hàm mock
+     expect(person.foodEaten()).toBe('banana');
+ });
+});
